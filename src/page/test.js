@@ -1,8 +1,5 @@
 import React, {Component} from 'react';
-import {
-  StyleSheet,
-  View,
-} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 
 class Test extends Component {
   constructor(props) {
@@ -16,20 +13,15 @@ class Test extends Component {
   }
 
   render() {
-    return (
-      <View style={styles.container}>
-
-      </View>
-    );
+    return <View style={styles.container} />;
   }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000000'
+    backgroundColor: '#000000',
   },
-
 });
 
 export default Test;

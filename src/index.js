@@ -152,7 +152,7 @@ class Enter extends Component {
           <Text styles={styles.titleTop}>{title}</Text>
           <Text style={[styles.marginBottom, styles.time]}>{time}</Text>
         </View>,
-      )
+      );
     }
     return _dataPart4;
   }
@@ -166,37 +166,66 @@ class Enter extends Component {
       _dataPart5.push(
         <View key={key} style={styles.commodity}>
           <Image style={styles.commodityImg} source={{uri: img}} />
-          <Text style={[{marginTop: container.screenWidth * 0.02}, styles.titleTop]} numberOfLines={1}>{title}</Text>
+          <Text
+            style={[{marginTop: container.screenWidth * 0.02}, styles.titleTop]}
+            numberOfLines={1}>
+            {title}
+          </Text>
           <Text style={styles.time} numberOfLines={1}>
             {content}
           </Text>
         </View>,
-      )
+      );
     }
     return _dataPart5;
   }
   renderPart3() {
     for (let i = 0; i < 5; i++) {
-      let px1 = Math.random() * 1000 + 1000, px2 = Math.random() * 1000 + 1000;
+      let px1 = Math.random() * 1000 + 1000,
+        px2 = Math.random() * 1000 + 1000;
       const img = Random.image(px1 + 'x' + px2, '#50B347', '#FFF', 'MOCK.JS');
       const key = Mock.mock('@float');
-      Image.getSize(img, (width,height) => {
-        this.setState({
-          _dataPart3: [...this.state._dataPart3,
-            <View style={this.getChildrenStyle({width, height, isContainer: true})} key={key}>
-              <View style={this.getChildrenStyle({width, height, isContainer: false})}>
-                <Image style={styles.img} source={{uri: img}} />
-              </View>
-              <View style={[styles.marginTop, {height: container.screenWidth * 0.2}]}>
-                <Text numberOfLines={1} style={styles.titleTop}>张公山公园</Text>
-                <Text numberOfLines={2} style={styles.time}>张公山风景区是国家AAAA景区，位于安徽省蚌埠市西南部</Text>
-              </View>
-            </View>
-            ,],
-        });
-      },(error)=>{
-        console.log(error);
-      });
+      Image.getSize(
+        img,
+        (width, height) => {
+          this.setState({
+            _dataPart3: [
+              ...this.state._dataPart3,
+              <View
+                style={this.getChildrenStyle({
+                  width,
+                  height,
+                  isContainer: true,
+                })}
+                key={key}>
+                <View
+                  style={this.getChildrenStyle({
+                    width,
+                    height,
+                    isContainer: false,
+                  })}>
+                  <Image style={styles.img} source={{uri: img}} />
+                </View>
+                <View
+                  style={[
+                    styles.marginTop,
+                    {height: container.screenWidth * 0.2},
+                  ]}>
+                  <Text numberOfLines={1} style={styles.titleTop}>
+                    张公山公园
+                  </Text>
+                  <Text numberOfLines={2} style={styles.time}>
+                    张公山风景区是国家AAAA景区，位于安徽省蚌埠市西南部
+                  </Text>
+                </View>
+              </View>,
+            ],
+          });
+        },
+        (error) => {
+          console.log(error);
+        },
+      );
     }
   }
   getAutoResponsiveProps() {
@@ -360,8 +389,15 @@ class Enter extends Component {
             </View>
           </View>
           {/*底部地址*/}
-          <View style={[styles.partContainer, styles.copyRight, styles.marginBottom]}>
-            <Text style={styles.time}>Copyright 2019 上海上业信息科技股份有限公司</Text>
+          <View
+            style={[
+              styles.partContainer,
+              styles.copyRight,
+              styles.marginBottom,
+            ]}>
+            <Text style={styles.time}>
+              Copyright 2019 上海上业信息科技股份有限公司
+            </Text>
             <Image source={require('./assets/images/Copyright.png')} />
           </View>
           {/*{this.renderItem()}*/}
@@ -492,7 +528,7 @@ const styles = StyleSheet.create({
     height: container.screenWidth * 0.56,
   },
   copyRight: {
-    alignItems: 'center'
+    alignItems: 'center',
   },
   text: {
     textAlign: 'center',
