@@ -12,6 +12,8 @@ import {
 } from 'react-native';
 import container from './utils/container';
 import Swiper from 'react-native-swiper';
+import Header from './page/common/header';
+import Throttling from './utils/Throttling';
 let AutoResponsive = require('autoresponsive-react-native');
 const Mock = require('mockjs');
 const Random = Mock.Random;
@@ -29,6 +31,7 @@ class Enter extends Component {
   componentDidMount() {
     this.fetchData();
     this.renderPart3();
+    this.newsItem();
   }
   fetchData() {
     const arr = [];
@@ -71,14 +74,16 @@ class Enter extends Component {
   renderItem() {
     return this.state.itemArr;
   }
-  _onPressButton() {}
+  _onPressButton() {
+    this.props.navigation.push('Scenic');
+  }
   newsItem() {
     const arr_1 = [];
     for (let i = 0; i < 5; i++) {
       arr_1.push(
         <TouchableOpacity
           activeOpacity={0.8}
-          onPress={this._onPressButton}
+          onPress={() => Throttling(() => this._onPressButton())}
           key={i + new Date().getTime()}>
           <View style={styles.scenicItem}>
             <View style={styles.scenicItemImage}>
@@ -211,7 +216,10 @@ class Enter extends Component {
                     styles.marginTop,
                     {height: container.screenWidth * 0.2},
                   ]}>
-                  <Text numberOfLines={1} style={styles.titleTop}>
+                  <Text
+                    numberOfLines={1}
+                    ellipsizeMode={'middle'}
+                    style={styles.titleTop}>
                     张公山公园
                   </Text>
                   <Text numberOfLines={2} style={styles.time}>
@@ -254,61 +262,53 @@ class Enter extends Component {
               onRefresh={this._onRefresh}
             />
           }>
-          <View>
-            <ImageBackground
-              source={require('./assets/images/head-bd.png')}
-              style={{
-                width: container.screenWidth,
-                height: container.screenHeight * 0.08,
-              }}
-            />
-            <View style={styles.swiperContainer}>
-              <Swiper
-                horizontal={true}
-                loop={true}
-                autoplay={true}
-                autoplayTimeout={3}
-                dot={
-                  <View
-                    style={{
-                      //未选中的圆点样式
-                      backgroundColor: '#cdcdcc',
-                      width: 10,
-                      height: 10,
-                      borderRadius: 5,
-                      marginLeft: 5,
-                      marginRight: 5,
-                    }}
-                  />
-                }
-                activeDot={
-                  <View
-                    style={{
-                      //选中的圆点样式
-                      backgroundColor: '#ffffff',
-                      width: 10,
-                      height: 10,
-                      borderRadius: 5,
-                      marginLeft: 5,
-                      marginRight: 5,
-                    }}
-                  />
-                }
-                showsButtons={false}>
-                <Image
-                  source={require('./assets/images/banner1.png')}
-                  style={styles.img}
+          <Header navigate={this.props.navigation} />
+          <View style={styles.swiperContainer}>
+            <Swiper
+              horizontal={true}
+              loop={true}
+              autoplay={true}
+              autoplayTimeout={3}
+              dot={
+                <View
+                  style={{
+                    //未选中的圆点样式
+                    backgroundColor: '#cdcdcc',
+                    width: 10,
+                    height: 10,
+                    borderRadius: 5,
+                    marginLeft: 5,
+                    marginRight: 5,
+                  }}
                 />
-                <Image
-                  source={require('./assets/images/banner1.png')}
-                  style={styles.img}
+              }
+              activeDot={
+                <View
+                  style={{
+                    //选中的圆点样式
+                    backgroundColor: '#ffffff',
+                    width: 10,
+                    height: 10,
+                    borderRadius: 5,
+                    marginLeft: 5,
+                    marginRight: 5,
+                  }}
                 />
-                <Image
-                  source={require('./assets/images/banner1.png')}
-                  style={styles.img}
-                />
-              </Swiper>
-            </View>
+              }
+              showsButtons={false}>
+              <Image
+                source={require('./assets/images/banner1.png')}
+                style={styles.img}
+              />
+              <Image
+                source={require('./assets/images/banner1.png')}
+                style={styles.img}
+              />
+              <Image
+                source={require('./assets/images/banner1.png')}
+                style={styles.img}
+              />
+            </Swiper>
           </View>
           <View style={styles.partContainer}>
             <View style={styles.title}>
@@ -317,7 +317,7 @@ class Enter extends Component {
             </View>
             {this.newsItem()}
             <View style={styles.buttonContainer}>
-              <TouchableOpacity style={styles.button} activeOpacity={0.8}>
+              <TouchableOpacity style={styles.button}>
                 <Text> 更多 </Text>
               </TouchableOpacity>
             </View>
@@ -410,6 +410,7 @@ class Enter extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#f5f5f5',
   },
   marginTop: {
     marginTop: container.screenWidth * 0.04,
